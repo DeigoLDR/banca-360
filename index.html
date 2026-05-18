@@ -13,15 +13,15 @@
 
         <header class="auth-header">
             <h1 class="auth-brand">BANCA 360</h1>
-            <button id="auth-theme-toggle" class="auth-theme-btn">&#127769; Modo Oscuro</button>
+            <button id="auth-theme-toggle" class="auth-theme-btn">🌙 Modo Oscuro</button>
         </header>
 
         <div class="auth-body">
 
             <!-- Login -->
             <section id="login-container" class="auth-card">
-                <div class="auth-logo">&#127968;</div>
-                <h2 class="auth-title">Banca 360 En L&#237;nea</h2>
+                <div class="auth-logo">🏠</div>
+                <h2 class="auth-title">Banca 360 En Línea</h2>
                 <p class="auth-subtitle">Ingrese sus credenciales para continuar</p>
                 <form id="login-form" novalidate>
                     <div class="form-group">
@@ -29,39 +29,39 @@
                         <input type="text" id="login-username" placeholder="Nombre de usuario" autocomplete="username">
                     </div>
                     <div class="form-group">
-                        <label for="login-password">Contrase&#241;a</label>
-                        <input type="password" id="login-password" placeholder="Contrase&#241;a" autocomplete="current-password">
+                        <label for="login-password">Contraseña</label>
+                        <input type="password" id="login-password" placeholder="Contraseña" autocomplete="current-password">
                     </div>
                     <span class="error-msg auth-error-msg" id="err-login"></span>
                     <button type="submit" class="btn-primary auth-btn">Ingresar</button>
                 </form>
-                <a href="#" id="link-a-registro" class="auth-link">&#191;No tienes cuenta? Reg&#237;strate aqu&#237;</a>
+                <a href="#" id="link-a-registro" class="auth-link">¿No tienes cuenta? Regístrate aquí</a>
             </section>
 
             <!-- Registro -->
             <section id="register-container" class="auth-card hidden">
-                <div class="auth-logo">&#128196;</div>
+                <div class="auth-logo">📄</div>
                 <h2 class="auth-title">Registro de Nuevo Cliente</h2>
-                <p class="auth-subtitle">Crea tu cuenta para acceder a la banca en l&#237;nea</p>
+                <p class="auth-subtitle">Crea tu cuenta para acceder a la banca en línea</p>
                 <form id="register-form" novalidate>
                     <div class="form-group">
                         <label for="reg-username">Usuario</label>
-                        <input type="text" id="reg-username" placeholder="M&#237;nimo 3 caracteres" autocomplete="username">
+                        <input type="text" id="reg-username" placeholder="Mínimo 3 caracteres" autocomplete="username">
                         <span class="error-msg" id="err-reg-username"></span>
                     </div>
                     <div class="form-group">
-                        <label for="reg-password">Contrase&#241;a <span style="text-transform:none;font-weight:400;">(m&#237;n. 6 n&#250;meros)</span></label>
-                        <input type="password" id="reg-password" placeholder="Solo d&#237;gitos num&#233;ricos" autocomplete="new-password">
+                        <label for="reg-password">Contraseña <span style="text-transform:none;font-weight:400;">(mín. 6 números)</span></label>
+                        <input type="password" id="reg-password" placeholder="Solo dígitos numéricos" autocomplete="new-password">
                         <span class="error-msg" id="err-reg-password"></span>
                     </div>
                     <div class="form-group">
-                        <label for="reg-confirm-password">Confirmar Contrase&#241;a</label>
-                        <input type="password" id="reg-confirm-password" placeholder="Repita la contrase&#241;a" autocomplete="new-password">
+                        <label for="reg-confirm-password">Confirmar Contraseña</label>
+                        <input type="password" id="reg-confirm-password" placeholder="Repita la contraseña" autocomplete="new-password">
                         <span class="error-msg" id="err-reg-confirm"></span>
                     </div>
                     <button type="submit" class="btn-primary auth-btn">Registrarse</button>
                 </form>
-                <a href="#" id="link-a-login" class="auth-link">&#191;Ya tienes cuenta? Ingresa aqu&#237;</a>
+                <a href="#" id="link-a-login" class="auth-link">¿Ya tienes cuenta? Ingresa aquí</a>
             </section>
 
             <!-- Spinner de carga (auth) -->
@@ -72,17 +72,17 @@
 
             <!-- Preguntas de seguridad -->
             <section id="security-questions" class="auth-card hidden">
-                <div class="auth-logo">&#128274;</div>
-                <h2 class="auth-title">Configuraci&#243;n de Seguridad</h2>
+                <div class="auth-logo">🔒</div>
+                <h2 class="auth-title">Configuración de Seguridad</h2>
                 <p class="auth-subtitle">Seleccione una pregunta para recuperar su cuenta</p>
                 <form id="questions-form" novalidate>
                     <div class="form-group">
                         <label for="pregunta-selector">Pregunta secreta</label>
                         <select id="pregunta-selector">
                             <option value="">Seleccione una pregunta</option>
-                            <option value="1">&#191;Nombre de su primera mascota?</option>
-                            <option value="2">&#191;Ciudad donde se conocieron sus padres?</option>
-                            <option value="3">&#191;Marca de su primer coche?</option>
+                            <option value="1">¿Nombre de su primera mascota?</option>
+                            <option value="2">¿Ciudad donde se conocieron sus padres?</option>
+                            <option value="3">¿Marca de su primer coche?</option>
                         </select>
                         <span class="error-msg" id="err-pregunta"></span>
                     </div>
@@ -105,14 +105,14 @@
         <aside class="sidebar">
             <h1 class="brand">Banco 360</h1>
             <nav class="nav-menu">
-                <button class="nav-btn active" data-view="inicio">&#127968; Inicio</button>
-                <button class="nav-btn" data-view="perfil">&#128100; Perfil</button>
-                <button class="nav-btn" data-view="transferencias">&#128184; Transferencias</button>
-                <button class="nav-btn" data-view="pago-movil">&#128241; Pago M&#243;vil</button>
-                <button class="nav-btn" data-view="historial">&#128203; Historial de Movimiento</button>
-                <button class="nav-btn" data-view="depositos">&#128176; Dep&#243;sitos</button>
+                <button class="nav-btn active" data-view="inicio">🏠 Inicio</button>
+                <button class="nav-btn" data-view="perfil">👤 Perfil</button>
+                <button class="nav-btn" data-view="transferencias">💰 Transferencias</button>
+                <button class="nav-btn" data-view="pago-movil">📱 Pago Móvil</button>
+                <button class="nav-btn" data-view="historial">📃 Historial de Movimiento</button>
+                <button class="nav-btn" data-view="depositos">💰 Depósitos</button>
             </nav>
-            <button id="theme-toggle" class="theme-btn">&#127769; Modo Oscuro</button>
+            <button id="theme-toggle" class="theme-btn">🌙 Modo Oscuro</button>
         </aside>
 
         <!-- ===== CONTENIDO PRINCIPAL ===== -->
@@ -126,24 +126,24 @@
                     <p class="balance-label">Saldo Disponible</p>
                     <div class="balance-display">
                         <span id="saldo-monto">$1,250.00</span>
-                        <button id="toggle-eye" class="eye-btn" title="Mostrar / Ocultar saldo">&#128065;&#65039;</button>
+                        <button id="toggle-eye" class="eye-btn" title="Mostrar / Ocultar saldo">👁️</button>
                     </div>
                 </div>
 
                 <div class="ultimas-transacciones">
-                    <h3>&#250;ltimas transacciones</h3>
+                    <h3>Últimas transacciones</h3>
                     <table class="transactions-table">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Descripci&#243;n</th>
+                                <th>Descripción</th>
                                 <th>Tipo</th>
                                 <th>Monto</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-ultimas"></tbody>
                     </table>
-                    <button class="btn-link" id="btn-ver-historial">Ver historial completo &#8594;</button>
+                    <button class="btn-link" id="btn-ver-historial">Ver historial completo →</button>
                 </div>
             </section>
 
@@ -151,58 +151,51 @@
             <section id="vista-perfil" class="vista">
                 <h2 class="vista-title">Mi Perfil</h2>
 
-                <!-- Contenido principal del perfil -->
                 <div id="profile-container">
-
-                    <!-- Foto y nombre de usuario -->
                     <div class="profile-header">
                         <img src="https://via.placeholder.com/100" alt="Foto de Perfil" class="profile-pic">
                         <h2 id="display-username" class="profile-username">Nombre de Usuario</h2>
                     </div>
 
-                    <!-- Datos de la cuenta -->
                     <div class="perfil-card">
                         <div class="perfil-info">
-                            <p><span class="etiqueta">C&#233;dula</span><span class="valor">V-12.345.678</span></p>
+                            <p><span class="etiqueta">Cédula</span><span class="valor">V-12.345.678</span></p>
                             <p><span class="etiqueta">Correo</span><span class="valor">carlos.gonzalez@email.com</span></p>
-                            <p><span class="etiqueta">Tel&#233;fono</span><span class="valor">0414-123-4567</span></p>
-                            <p><span class="etiqueta">N&#250;mero de cuenta</span><span class="valor">0102-0000-12-0000012345</span></p>
+                            <p><span class="etiqueta">Teléfono</span><span class="valor">0414-123-4567</span></p>
+                            <p><span class="etiqueta">Número de cuenta</span><span class="valor">0102-0000-12-0000012345</span></p>
                             <p><span class="etiqueta">Tipo de cuenta</span><span class="valor">Cuenta Corriente</span></p>
                         </div>
                     </div>
 
                     <hr class="perfil-hr">
 
-                    <!-- Cambiar contraseña -->
                     <div class="cambiar-pass-section">
-                        <h3 class="section-subtitle">Cambiar Contrase&#241;a</h3>
+                        <h3 class="section-subtitle">Cambiar Contraseña</h3>
                         <form class="form-operacion" id="change-password-form" novalidate>
                             <div class="form-group">
-                                <label for="new-password">Nueva Contrase&#241;a</label>
-                                <input type="password" id="new-password" placeholder="M&#237;nimo 6 caracteres">
+                                <label for="new-password">Nueva Contraseña (mín. 6 números)</label>
+                                <input type="password" id="new-password" placeholder="Solo dígitos numéricos">
                                 <span class="error-msg" id="err-password"></span>
                             </div>
                             <div class="form-group">
-                                <label for="confirm-password">Confirmar Contrase&#241;a</label>
-                                <input type="password" id="confirm-password" placeholder="Repita la nueva contrase&#241;a">
+                                <label for="confirm-password">Confirmar Contraseña</label>
+                                <input type="password" id="confirm-password" placeholder="Repita la nueva contraseña">
                                 <span class="error-msg" id="err-confirm-password"></span>
                             </div>
-                            <button type="submit" class="btn-secondary">Actualizar Contrase&#241;a</button>
+                            <button type="submit" class="btn-secondary">Actualizar Contraseña</button>
                         </form>
                         <div class="confirmacion" id="confirmacion-password"></div>
                     </div>
 
                     <hr class="perfil-hr">
 
-                    <!-- Cerrar sesión -->
-                    <button id="logout-btn" class="btn-danger">Cerrar Sesi&#243;n</button>
+                    <button id="logout-btn" class="btn-danger">Cerrar Sesión</button>
                 </div>
 
-                <!-- Pantalla de sesión finalizada (oculta por defecto) -->
                 <div id="logout-screen" class="logout-screen hidden">
-                    <div class="success-icon">&#10004;&#65039;</div>
-                    <h2>Sesi&#243;n Finalizada</h2>
-                    <p>Gracias por usar Banca 360. Tu sesi&#243;n ha sido cerrada de forma segura.</p>
+                    <div class="success-icon">✅</div>
+                    <h2>Sesión Finalizada</h2>
+                    <p>Gracias por usar Banca 360. Tu sesión ha sido cerrada de forma segura.</p>
                     <button onclick="volverAlLogin()" class="btn-primary" style="max-width:220px;margin-top:16px;">Volver al Inicio</button>
                 </div>
             </section>
@@ -212,7 +205,7 @@
                 <h2 class="vista-title">Transferencias</h2>
                 <form class="form-operacion" id="form-transferencia" novalidate>
                     <div class="form-group">
-                        <label for="t-cuenta">N&#250;mero de cuenta destino</label>
+                        <label for="t-cuenta">Número de cuenta destino</label>
                         <input type="text" id="t-cuenta" placeholder="0000-0000-00-0000000000" maxlength="24">
                         <span class="error-msg" id="err-t-cuenta"></span>
                     </div>
@@ -228,7 +221,7 @@
                     </div>
                     <div class="form-group">
                         <label for="t-concepto">Concepto</label>
-                        <input type="text" id="t-concepto" placeholder="Descripci&#243;n del pago">
+                        <input type="text" id="t-concepto" placeholder="Descripción del pago">
                         <span class="error-msg" id="err-t-concepto"></span>
                     </div>
                     <button type="submit" class="btn-primary">Realizar Transferencia</button>
@@ -238,15 +231,15 @@
 
             <!-- VISTA: PAGO MÓVIL -->
             <section id="vista-pago-movil" class="vista">
-                <h2 class="vista-title">Pago M&#243;vil</h2>
+                <h2 class="vista-title">Pago Móvil</h2>
                 <form class="form-operacion" id="form-pago-movil" novalidate>
                     <div class="form-group">
-                        <label for="pm-telefono">N&#250;mero de tel&#233;fono</label>
+                        <label for="pm-telefono">Número de teléfono</label>
                         <input type="tel" id="pm-telefono" placeholder="04XX-XXX-XXXX" maxlength="15">
                         <span class="error-msg" id="err-pm-telefono"></span>
                     </div>
                     <div class="form-group">
-                        <label for="pm-cedula">C&#233;dula del receptor</label>
+                        <label for="pm-cedula">Cédula del receptor</label>
                         <input type="text" id="pm-cedula" placeholder="V-00000000">
                         <span class="error-msg" id="err-pm-cedula"></span>
                     </div>
@@ -284,7 +277,7 @@
                     <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Descripci&#243;n</th>
+                            <th>Descripción</th>
                             <th>Tipo</th>
                             <th>Monto</th>
                             <th>Detalle</th>
@@ -296,17 +289,17 @@
 
             <!-- VISTA: DETALLE DE TRANSACCIÓN -->
             <section id="vista-detalle" class="vista">
-                <button class="btn-link btn-volver" id="btn-volver">&#8592; Volver al Historial</button>
-                <h2 class="vista-title">Detalle de Transacci&#243;n</h2>
+                <button class="btn-link btn-volver" id="btn-volver">← Volver al Historial</button>
+                <h2 class="vista-title">Detalle de Transacción</h2>
                 <div class="detalle-card" id="detalle-contenido"></div>
             </section>
 
             <!-- VISTA: DEPÓSITOS -->
             <section id="vista-depositos" class="vista">
-                <h2 class="vista-title">Dep&#243;sitos</h2>
+                <h2 class="vista-title">Depósitos</h2>
                 <form class="form-operacion" id="form-deposito" novalidate>
                     <div class="form-group">
-                        <label for="d-tipo">Tipo de dep&#243;sito</label>
+                        <label for="d-tipo">Tipo de depósito</label>
                         <select id="d-tipo">
                             <option value="">Seleccione tipo</option>
                             <option value="efectivo">Efectivo</option>
@@ -321,10 +314,10 @@
                         <span class="error-msg" id="err-d-monto"></span>
                     </div>
                     <div class="form-group">
-                        <label for="d-referencia">N&#250;mero de referencia <span style="font-weight:400;text-transform:none">(opcional)</span></label>
+                        <label for="d-referencia">Número de referencia <span style="font-weight:400;text-transform:none">(opcional)</span></label>
                         <input type="text" id="d-referencia" placeholder="Ej: 00123456">
                     </div>
-                    <button type="submit" class="btn-primary">Registrar Dep&#243;sito</button>
+                    <button type="submit" class="btn-primary">Registrar Depósito</button>
                 </form>
                 <div class="confirmacion" id="confirmacion-deposito"></div>
             </section>
@@ -335,9 +328,9 @@
     <!-- Pantalla de carga global (overlay para el logout) -->
     <div id="loading-screen" class="loading-screen hidden">
         <div class="spinner"></div>
-        <p>Cerrando sesi&#243;n...</p>
+        <p>Cerrando sesión...</p>
     </div>
 
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
