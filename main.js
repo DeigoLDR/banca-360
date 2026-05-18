@@ -13,10 +13,10 @@ let transacciones = [
 ];
 
 let saldoActual = 1250.00;
-let saldoVisible = true;
+let saldoVisible = false;   // 🔒 Saldo oculto por defecto
 let filtroActivo = 'todos';
-let usuarioActual = null;      // username del usuario logueado
-let datosUsuarioActual = null; // objeto completo del usuario (para mostrar en perfil)
+let usuarioActual = null;
+let datosUsuarioActual = null;
 
 // =============================================
 // FUNCIONES AUXILIARES
@@ -42,7 +42,12 @@ function renderUltimas() {
     let html = '';
     transacciones.slice(0,3).forEach(tx => {
         let signo = tx.tipo === 'entrada' ? '+' : '-';
-        html += `<tr><td>${tx.fecha}</td><td>${tx.descripcion}</td><td><span class="badge badge-${tx.tipo}">${tx.tipo==='entrada'?'Entrada':'Salida'}</span></td><td class="monto-${tx.tipo}">${signo}${formatearMonto(tx.monto)}</td></tr>`;
+        html += `<tr>
+            <td>${tx.fecha}</td>
+            <td>${tx.descripcion}</td>
+            <td><span class="badge badge-${tx.tipo}">${tx.tipo==='entrada'?'Entrada':'Salida'}</span></td>
+            <td class="monto-${tx.tipo}">${signo}${formatearMonto(tx.monto)}</td>
+        </tr>`;
     });
     tbody.innerHTML = html;
 }
@@ -54,7 +59,13 @@ function renderHistorial(filtro) {
     let html = '';
     lista.forEach(tx => {
         let signo = tx.tipo === 'entrada' ? '+' : '-';
-        html += `<tr><td>${tx.fecha}</td><td>${tx.descripcion}</td><td><span class="badge badge-${tx.tipo}">${tx.tipo==='entrada'?'Entrada':'Salida'}</span></td><td class="monto-${tx.tipo}">${signo}${formatearMonto(tx.monto)}</td><td><button class="btn-detalle" data-id="${tx.id}">Ver</button></td></tr>`;
+        html += `<tr>
+            <td>${tx.fecha}</td>
+            <td>${tx.descripcion}</td>
+            <td><span class="badge badge-${tx.tipo}">${tx.tipo==='entrada'?'Entrada':'Salida'}</span></td>
+            <td class="monto-${tx.tipo}">${signo}${formatearMonto(tx.monto)}</td>
+            <td><button class="btn-detalle" data-id="${tx.id}">Ver</button></td>
+        </tr>`;
     });
     tbody.innerHTML = html;
 }
@@ -111,7 +122,7 @@ function navegarA(vistaId) {
     if (vistaId === 'perfil') {
         document.getElementById('profile-container').classList.remove('hidden');
         document.getElementById('logout-screen').classList.add('hidden');
-        cargarDatosPerfil();  // refrescar datos del usuario
+        cargarDatosPerfil();
     }
 }
 
@@ -121,7 +132,10 @@ function navegarA(vistaId) {
 function toggleSaldo() {
     saldoVisible = !saldoVisible;
     let eye = document.getElementById('toggle-eye');
-    if (eye) { eye.innerHTML = saldoVisible ? '👁️' : '🙈'; eye.title = saldoVisible ? 'Ocultar saldo' : 'Mostrar saldo'; }
+    if (eye) {
+        eye.innerHTML = saldoVisible ? '👁️' : '🙈';
+        eye.title = saldoVisible ? 'Ocultar saldo' : 'Mostrar saldo';
+    }
     actualizarSaldoUI();
 }
 function toggleTheme() {
@@ -135,14 +149,13 @@ function toggleTheme() {
 }
 
 // =============================================
-// PERFIL Y USUARIOS (con cédula, correo, teléfono)
+// PERFIL Y USUARIOS
 // =============================================
 function cargarUsuarios() {
     let stored = localStorage.getItem('usuariosBanca');
     return stored ? JSON.parse(stored) : [];
 }
 function guardarUsuarios(usuarios) { localStorage.setItem('usuariosBanca', JSON.stringify(usuarios)); }
-
 function registrarUsuario(username, cedula, correo, telefono, password, preguntaId, respuesta) {
     let usuarios = cargarUsuarios();
     if (usuarios.some(u => u.username === username)) return false;
@@ -150,23 +163,19 @@ function registrarUsuario(username, cedula, correo, telefono, password, pregunta
     guardarUsuarios(usuarios);
     return true;
 }
-
 function actualizarPassword(username, nuevaPassword) {
     let usuarios = cargarUsuarios();
     let user = usuarios.find(u => u.username === username);
     if (user) { user.password = nuevaPassword; guardarUsuarios(usuarios); return true; }
     return false;
 }
-
 function validarCredenciales(username, password) {
     let usuarios = cargarUsuarios();
     return usuarios.some(u => u.username === username && u.password === password);
 }
-
 function obtenerUsuarioPorUsername(username) {
     return cargarUsuarios().find(u => u.username === username);
 }
-
 function cargarDatosPerfil() {
     if (!usuarioActual) return;
     let user = obtenerUsuarioPorUsername(usuarioActual);
@@ -185,7 +194,6 @@ function cargarDatosPerfil() {
     let displayName = document.getElementById('display-username');
     if (displayName) displayName.textContent = `Bienvenido, ${user.username}`;
 }
-
 function mostrarDashboard(username) {
     usuarioActual = username;
     datosUsuarioActual = obtenerUsuarioPorUsername(username);
@@ -193,9 +201,14 @@ function mostrarDashboard(username) {
     document.querySelector('.dashboard-container').classList.remove('hidden');
     cargarDatosPerfil();
     actualizarTodasLasVistas();
+    // Ajustar botón ojo para estado oculto
+    let eyeBtn = document.getElementById('toggle-eye');
+    if (eyeBtn) {
+        eyeBtn.innerHTML = '🙈';
+        eyeBtn.title = 'Mostrar saldo';
+    }
     navegarA('inicio');
 }
-
 window.volverAlLogin = function() {
     document.querySelector('.dashboard-container').classList.add('hidden');
     document.getElementById('logout-screen').classList.add('hidden');
@@ -209,7 +222,6 @@ window.volverAlLogin = function() {
     document.getElementById('auth-screen').classList.remove('hidden');
     usuarioActual = null;
 };
-
 function iniciarLogout() {
     document.getElementById('profile-container').classList.add('hidden');
     document.getElementById('loading-screen').classList.remove('hidden');
@@ -220,7 +232,7 @@ function iniciarLogout() {
 }
 
 // =============================================
-// VALIDACIONES DE FORMULARIOS BANCARIOS (sin cambios relevantes)
+// VALIDACIONES DE FORMULARIOS BANCARIOS
 // =============================================
 function validarTransferencia(e) {
     e.preventDefault();
@@ -297,7 +309,7 @@ function verDetalle(id) {
 }
 
 // =============================================
-// LOGIN, REGISTRO (con nuevos campos) y PREGUNTAS
+// LOGIN, REGISTRO Y PREGUNTAS
 // =============================================
 function manejarLogin(e) {
     e.preventDefault();
@@ -317,7 +329,6 @@ function manejarLogin(e) {
         err.textContent = 'Usuario o contraseña incorrectos.';
     }
 }
-
 function manejarRegistro(e) {
     e.preventDefault();
     let username = document.getElementById('reg-username').value.trim();
@@ -327,7 +338,6 @@ function manejarRegistro(e) {
     let password = document.getElementById('reg-password').value;
     let confirm = document.getElementById('reg-confirm-password').value;
     let valido = true;
-    // Limpiar errores
     ['username','cedula','correo','telefono','password','confirm'].forEach(id => {
         document.getElementById(`err-reg-${id}`).textContent = '';
     });
@@ -335,17 +345,14 @@ function manejarRegistro(e) {
         document.getElementById('err-reg-username').textContent = 'Mínimo 3 caracteres.';
         valido = false;
     }
-    // Cédula: solo números, 7 u 8 dígitos
     if (!/^\d{7,8}$/.test(cedula)) {
         document.getElementById('err-reg-cedula').textContent = 'Cédula inválida (7 u 8 dígitos).';
         valido = false;
     }
-    // Correo
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
         document.getElementById('err-reg-correo').textContent = 'Correo electrónico inválido.';
         valido = false;
     }
-    // Teléfono formato 0XXX-XXXXXXX
     let telefonoRegex = /^0\d{3}-\d{7}$/;
     if (!telefonoRegex.test(telefono)) {
         document.getElementById('err-reg-telefono').textContent = 'Formato: 0XXX-XXXXXXX (ej: 0412-1234567)';
@@ -365,7 +372,6 @@ function manejarRegistro(e) {
         valido = false;
     }
     if (!valido) return;
-    // Guardar temporalmente
     localStorage.setItem('tempUser', JSON.stringify({ username, cedula, correo, telefono, password }));
     document.getElementById('register-container').classList.add('hidden');
     document.getElementById('auth-loading').classList.remove('hidden');
@@ -374,7 +380,6 @@ function manejarRegistro(e) {
         document.getElementById('security-questions').classList.remove('hidden');
     }, 1500);
 }
-
 function manejarPreguntas(e) {
     e.preventDefault();
     let pregunta = document.getElementById('pregunta-selector').value;
@@ -409,7 +414,6 @@ function manejarPreguntas(e) {
         }
     }
 }
-
 function mostrarRegistro(e) { e.preventDefault(); document.getElementById('login-container').classList.add('hidden'); document.getElementById('register-container').classList.remove('hidden'); }
 function mostrarLoginForm(e) { e.preventDefault(); document.getElementById('register-container').classList.add('hidden'); document.getElementById('login-container').classList.remove('hidden'); }
 
@@ -417,7 +421,7 @@ function mostrarLoginForm(e) { e.preventDefault(); document.getElementById('regi
 // INICIALIZACIÓN
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    // Crear usuario demo si no existe (con datos de ejemplo)
+    // Crear usuario demo
     let usuarios = cargarUsuarios();
     if (!usuarios.some(u => u.username === 'demo')) {
         usuarios.push({
@@ -430,7 +434,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHistorial('todos');
     actualizarSaldoUI();
 
-    // Eventos de navegación
+    // Configurar botón ojo inicialmente cerrado
+    let eyeBtn = document.getElementById('toggle-eye');
+    if (eyeBtn) {
+        eyeBtn.innerHTML = '🙈';
+        eyeBtn.title = 'Mostrar saldo';
+    }
+
+    // Eventos
     document.querySelectorAll('.nav-btn[data-view]').forEach(btn => btn.addEventListener('click', () => navegarA(btn.getAttribute('data-view'))));
     document.getElementById('btn-ver-historial').addEventListener('click', () => { renderHistorial(filtroActivo); navegarA('historial'); });
     document.getElementById('toggle-eye').addEventListener('click', toggleSaldo);
