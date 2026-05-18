@@ -1,94 +1,1008 @@
-/* Variables para Modo Claro (por defecto) */
-:root {
-    --bg-color: #f4f7f6;
-    --text-color: #333333;
-    --container-bg: #ffffff;
-    --primary-color: #0056b3;
-    --border-color: #dddddd;
-    --error-color: #d9534f;
-}
-
-/* Variables para Modo Oscuro */
-[data-theme="dark"] {
-    --bg-color: #1a1a1a;
-    --text-color: #f4f7f6;
-    --container-bg: #2d2d2d;
-    --primary-color: #4da3ff;
-    --border-color: #444444;
-}
-
-/* Estilos Generales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+/* =============================================
+   RESET BÁSICO
+   ============================================= */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+/* =============================================
+   VARIABLES DE TEMATIZACIÓN
+   ============================================= */
+:root {
+    --bg-main:        #f0f4f8;
+    --bg-sidebar:     #1a2e4a;
+    --bg-card:        #ffffff;
+    --text-primary:   #1a2e4a;
+    --text-secondary: #607d98;
+    --text-sidebar:   #b8ccd8;
+    --accent-color:   #004a99;
+    --accent-hover:   #003578;
+    --income-color:   #1a7f3c;
+    --expense-color:  #c0392b;
+    --border-color:   #dce5ef;
+    --shadow-sm:      0 2px 6px rgba(0,0,0,0.07);
+    --shadow-md:      0 4px 16px rgba(0,0,0,0.10);
+    --nav-active-bg:  #004a99;
+    --nav-hover-bg:   rgba(255,255,255,0.09);
+    --fuente-header:  'Tahoma', sans-serif;
+    --fuente-body:    'Helvetica', Arial, sans-serif;
+}
+
+/* =============================================
+   MODO OSCURO
+   ============================================= */
+body.dark-mode {
+    --bg-main:        #0d1b2a;
+    --bg-sidebar:     #091524;
+    --bg-card:        #162333;
+    --text-primary:   #dce8f2;
+    --text-secondary: #7a9bb8;
+    --text-sidebar:   #b8ccd8;
+    --accent-color:   #3a90e0;
+    --accent-hover:   #2878c8;
+    --income-color:   #2ecc71;
+    --expense-color:  #e74c3c;
+    --border-color:   #1e3448;
+    --shadow-sm:      0 2px 8px rgba(0,0,0,0.30);
+    --shadow-md:      0 4px 20px rgba(0,0,0,0.40);
+    --nav-active-bg:  #3a90e0;
+    --nav-hover-bg:   rgba(255,255,255,0.07);
+}
+
+body {
+    font-family: var(--fuente-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     transition: background-color 0.3s, color 0.3s;
 }
 
-header {
+/* =============================================
+   LAYOUT PRINCIPAL  (CSS Grid)
+   ============================================= */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
+/* =============================================
+   SIDEBAR
+   ============================================= */
+.sidebar {
+    background-color: var(--bg-sidebar);
+    padding: 24px 14px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    transition: background-color 0.3s;
+}
+
+.brand {
+    color: #ffffff;
+    font-family: var(--fuente-header);
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    letter-spacing: 0.4px;
+}
+
+.nav-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.nav-btn {
+    display: block;
+    width: 100%;
+    padding: 11px 14px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--text-sidebar);
+    font-family: var(--fuente-body);
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s;
+}
+
+.nav-btn:hover {
+    background-color: var(--nav-hover-bg);
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background-color: var(--nav-active-bg);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.theme-btn {
+    margin-top: auto;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 8px;
+    color: var(--text-sidebar);
+    font-size: 0.82rem;
+    font-family: var(--fuente-body);
+    cursor: pointer;
+    transition: background-color 0.18s;
+    text-align: left;
+}
+
+.theme-btn:hover {
+    background: rgba(255,255,255,0.16);
+}
+
+/* =============================================
+   CONTENIDO PRINCIPAL
+   ============================================= */
+.main-content {
+    padding: 36px 44px;
+    background-color: var(--bg-main);
+    overflow-y: auto;
+    transition: background-color 0.3s;
+}
+
+/* =============================================
+   VISTAS  (mostrar / ocultar con JS)
+   ============================================= */
+.vista {
+    display: none;
+    animation: fadeIn 0.22s ease;
+}
+
+.vista.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0);   }
+}
+
+.vista-title {
+    font-family: var(--fuente-header);
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+/* =============================================
+   TARJETA DE SALDO
+   ============================================= */
+.balance-card {
+    background: linear-gradient(135deg, #004a99 0%, #0070cc 100%);
+    border-radius: 18px;
+    padding: 28px 32px;
+    color: #ffffff;
+    margin-bottom: 34px;
+    box-shadow: var(--shadow-md);
+    max-width: 400px;
+}
+
+body.dark-mode .balance-card {
+    background: linear-gradient(135deg, #1a4a80 0%, #2878c8 100%);
+}
+
+.balance-label {
+    font-size: 0.78rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.balance-display {
+    display: flex;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--container-bg);
+    gap: 14px;
+}
+
+#saldo-monto {
+    font-size: 2.1rem;
+    font-weight: 700;
+    font-family: var(--fuente-header);
+    letter-spacing: 1px;
+}
+
+.eye-btn {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: background-color 0.18s;
+}
+
+.eye-btn:hover {
+    background: rgba(255,255,255,0.32);
+}
+
+/* =============================================
+   SECCIÓN ÚLTIMAS TRANSACCIONES (Dashboard)
+   ============================================= */
+.ultimas-transacciones h3 {
+    font-family: var(--fuente-header);
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+/* =============================================
+   TABLA DE TRANSACCIONES
+   ============================================= */
+.transactions-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    font-size: 0.88rem;
+    transition: background-color 0.3s;
+}
+
+.transactions-table thead {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.transactions-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-family: var(--fuente-header);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.transactions-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: background-color 0.15s;
+}
+
+.transactions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.transactions-table tbody tr:hover td {
+    background-color: rgba(0, 74, 153, 0.04);
+}
+
+body.dark-mode .transactions-table tbody tr:hover td {
+    background-color: rgba(58, 144, 224, 0.07);
+}
+
+/* Badges entrada/salida */
+.badge {
+    display: inline-block;
+    padding: 3px 11px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.badge-entrada {
+    background-color: rgba(26, 127, 60, 0.12);
+    color: var(--income-color);
+}
+
+.badge-salida {
+    background-color: rgba(192, 57, 43, 0.12);
+    color: var(--expense-color);
+}
+
+/* Montos coloreados */
+.monto-entrada {
+    color: var(--income-color);
+    font-weight: 700;
+}
+
+.monto-salida {
+    color: var(--expense-color);
+    font-weight: 700;
+}
+
+/* Estado vacío */
+.estado-vacio {
+    text-align: center;
+    padding: 36px;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 0.88rem;
+}
+
+/* =============================================
+   BOTONES GENÉRICOS
+   ============================================= */
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    font-size: 0.88rem;
+    font-family: var(--fuente-body);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 14px;
+    display: inline-block;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+.btn-volver {
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+/* Botón "Ver" en tabla historial */
+.btn-detalle {
+    background: none;
+    border: 1.5px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-family: var(--fuente-body);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+}
+
+.btn-detalle:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* =============================================
+   FILTROS (Historial)
+   ============================================= */
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-filtro {
+    padding: 8px 22px;
+    border: 2px solid var(--accent-color);
+    border-radius: 24px;
+    background: transparent;
+    color: var(--accent-color);
+    font-size: 0.83rem;
+    font-family: var(--fuente-body);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.18s, color 0.18s;
+}
+
+.btn-filtro:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.btn-filtro.active {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* =============================================
+   DETALLE DE TRANSACCIÓN
+   ============================================= */
+.detalle-card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    max-width: 460px;
+    transition: background-color 0.3s;
+}
+
+.detalle-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color);
 }
 
-.auth-container {
-    max-width: 400px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background-color: var(--container-bg);
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border: 1px solid var(--border-color);
+.detalle-icono {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.detalle-icono.entrada { background-color: rgba(26,127,60,0.13); }
+.detalle-icono.salida  { background-color: rgba(192,57,43,0.13); }
+
+.detalle-titulo {
+    font-family: var(--fuente-header);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.detalle-subtitulo {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 3px;
+}
+
+.detalle-monto-grande {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--fuente-header);
+    margin-bottom: 22px;
+}
+
+.detalle-monto-grande.entrada { color: var(--income-color); }
+.detalle-monto-grande.salida  { color: var(--expense-color); }
+
+.detalle-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+}
+
+.detalle-fila:last-child { border-bottom: none; }
+
+.detalle-fila .etiqueta {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.detalle-fila .valor {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* =============================================
+   PERFIL
+   ============================================= */
+.perfil-card {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    max-width: 520px;
+    transition: background-color 0.3s;
+}
+
+.avatar {
+    width: 76px;
+    height: 76px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    flex-shrink: 0;
+}
+
+.perfil-info {
+    flex: 1;
+}
+
+.perfil-info p {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.88rem;
+}
+
+.perfil-info p:last-child { border-bottom: none; }
+
+.perfil-info .etiqueta {
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.perfil-info .valor {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+/* =============================================
+   FORMULARIOS
+   ============================================= */
+.form-operacion {
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    max-width: 480px;
+    transition: background-color 0.3s;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-input {
+.form-group input,
+.form-group select {
     width: 100%;
-    padding: 0.5rem;
-    box-sizing: border-box;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-
-button {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 1rem;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-#theme-toggle {
-    width: auto;
-    margin: 0;
-}
-
-.error {
-    color: var(--error-color);
+    padding: 11px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
     font-size: 0.9rem;
-    margin-top: 1rem;
+    font-family: var(--fuente-body);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s, background-color 0.3s, color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 74, 153, 0.12);
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    box-shadow: 0 0 0 3px rgba(58, 144, 224, 0.20);
+}
+
+.form-group input.invalido,
+.form-group select.invalido {
+    border-color: var(--expense-color);
+}
+
+.error-msg {
+    display: block;
+    color: var(--expense-color);
+    font-size: 0.76rem;
+    margin-top: 5px;
+    min-height: 15px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 13px;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    font-family: var(--fuente-header);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.18s, transform 0.1s;
+    letter-spacing: 0.3px;
+}
+
+.btn-primary:hover  { background-color: var(--accent-hover); }
+.btn-primary:active { transform: scale(0.99); }
+
+/* =============================================
+   MENSAJE DE CONFIRMACIÓN
+   ============================================= */
+.confirmacion {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: none;
+}
+
+.confirmacion.exito {
+    display: block;
+    background-color: rgba(26, 127, 60, 0.11);
+    border: 1px solid rgba(26, 127, 60, 0.30);
+    color: var(--income-color);
+}
+
+.confirmacion.error {
+    display: block;
+    background-color: rgba(192, 57, 43, 0.11);
+    border: 1px solid rgba(192, 57, 43, 0.30);
+    color: var(--expense-color);
+}
+
+/* =============================================
+   AUTENTICACIÓN  –  estilos de borradorMARIA integrados
+   ============================================= */
+
+#auth-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    transition: background-color 0.3s;
+}
+
+/* Header de la pantalla de auth */
+.auth-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 36px;
+    background-color: var(--bg-sidebar);
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+    flex-shrink: 0;
+}
+
+.auth-brand {
+    font-family: var(--fuente-header);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+.auth-theme-btn {
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    border-radius: 8px;
+    color: #c8d8e8;
+    font-size: 0.82rem;
+    font-family: var(--fuente-body);
+    cursor: pointer;
+    transition: background-color 0.18s;
+}
+
+.auth-theme-btn:hover {
+    background: rgba(255,255,255,0.20);
+}
+
+/* Cuerpo centrado de la pantalla de auth */
+.auth-body {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* Tarjeta de formulario de auth */
+.auth-card {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-card);
+    border-radius: 18px;
+    padding: 38px 40px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.auth-logo {
+    font-size: 2.6rem;
     text-align: center;
+    margin-bottom: 10px;
+}
+
+.auth-title {
+    font-family: var(--fuente-header);
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.auth-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+/* Botón principal dentro de auth (ancho completo con margen) */
+.auth-btn {
+    margin-top: 10px;
+}
+
+/* Mensaje de error en la pantalla de auth */
+.auth-error-msg {
+    display: block;
+    min-height: 18px;
+    margin-bottom: 2px;
+}
+
+/* Link de alternancia entre login y registro */
+.auth-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: var(--accent-color);
+    font-size: 0.83rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+}
+
+/* Tarjeta de loading dentro del flujo de auth */
+.auth-loading-card {
+    text-align: center;
+    padding: 48px 40px;
+}
+
+/* Spinner adaptado para fondo claro (auth) */
+.auth-spinner {
+    border: 4px solid var(--border-color) !important;
+    border-top-color: var(--accent-color) !important;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+}
+
+.auth-loading-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* =============================================
+   PERFIL  –  estilos de perfilM integrados
+   ============================================= */
+
+/* Foto de perfil circular */
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    object-fit: cover;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-username {
+    font-family: var(--fuente-header);
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+/* Separador */
+.perfil-hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 24px 0;
+    max-width: 480px;
+}
+
+/* Sección cambiar contraseña */
+.cambiar-pass-section {
+    max-width: 480px;
+}
+
+.section-subtitle {
+    font-family: var(--fuente-header);
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+}
+
+/* Botón secundario (gris) */
+.btn-secondary {
+    width: 100%;
+    padding: 13px;
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    font-family: var(--fuente-header);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background-color 0.18s;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Botón peligro (rojo) para cerrar sesión */
+.btn-danger {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 24px;
+    font-size: 0.94rem;
+    font-weight: 700;
+    font-family: var(--fuente-header);
+    cursor: pointer;
+    width: 100%;
+    max-width: 480px;
+    margin-top: 4px;
+    transition: background-color 0.18s;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Pantalla de sesión finalizada */
+.logout-screen {
+    text-align: center;
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    padding: 48px 32px;
+    box-shadow: var(--shadow-md);
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: background-color 0.3s;
+}
+
+.logout-screen h2 {
+    font-family: var(--fuente-header);
+    font-size: 1.3rem;
+    color: var(--text-primary);
+}
+
+.logout-screen p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Ícono de éxito */
+.success-icon {
+    font-size: 50px;
+    color: #28a745;
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+/* Clase utilitaria para ocultar elementos */
+.hidden {
+    display: none !important;
+}
+
+/* Pantalla de carga global (overlay para logout) */
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 999;
+}
+
+.loading-screen p {
+    color: #ffffff;
+    font-size: 1rem;
+    font-family: var(--fuente-body);
+}
+
+/* Spinner CSS puro */
+.spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgba(255,255,255,0.25);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+    to { transform: rotate(360deg); }
+}
+
+/* =============================================
+   RESPONSIVE  (tablet / móvil básico)
+   ============================================= */
+@media (max-width: 768px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 14px;
+        gap: 6px;
+    }
+
+    .brand {
+        width: 100%;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+    }
+
+    .nav-menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .nav-btn {
+        width: auto;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .theme-btn {
+        margin-top: 0;
+    }
+
+    .main-content {
+        padding: 20px 18px;
+    }
+
+    .balance-card,
+    .perfil-card,
+    .form-operacion,
+    .detalle-card {
+        max-width: 100%;
+    }
 }
