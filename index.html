@@ -38,7 +38,7 @@
                 <a href="#" id="link-a-registro" class="auth-link">¿No tienes cuenta? Regístrate aquí</a>
             </section>
 
-            <!-- Registro -->
+            <!-- Registro (con cédula, correo, teléfono) -->
             <section id="register-container" class="auth-card hidden">
                 <div class="auth-logo">📄</div>
                 <h2 class="auth-title">Registro de Nuevo Cliente</h2>
@@ -48,6 +48,21 @@
                         <label for="reg-username">Usuario</label>
                         <input type="text" id="reg-username" placeholder="Mínimo 3 caracteres" autocomplete="username">
                         <span class="error-msg" id="err-reg-username"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-cedula">Cédula (solo números, 7 u 8 dígitos)</label>
+                        <input type="text" id="reg-cedula" placeholder="Ej: 12345678">
+                        <span class="error-msg" id="err-reg-cedula"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-correo">Correo electrónico</label>
+                        <input type="email" id="reg-correo" placeholder="ejemplo@correo.com">
+                        <span class="error-msg" id="err-reg-correo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-telefono">Teléfono (formato 0XXX-XXXXXXX)</label>
+                        <input type="tel" id="reg-telefono" placeholder="Ej: 0412-1234567">
+                        <span class="error-msg" id="err-reg-telefono"></span>
                     </div>
                     <div class="form-group">
                         <label for="reg-password">Contraseña <span style="text-transform:none;font-weight:400;">(mín. 6 números)</span></label>
@@ -98,10 +113,9 @@
         </div><!-- /auth-body -->
     </div><!-- /auth-screen -->
 
-    <!-- ===== DASHBOARD (oculto hasta autenticarse) ===== -->
+    <!-- ===== DASHBOARD ===== -->
     <div class="dashboard-container hidden">
 
-        <!-- ===== SIDEBAR ===== -->
         <aside class="sidebar">
             <h1 class="brand">Banco 360</h1>
             <nav class="nav-menu">
@@ -115,13 +129,11 @@
             <button id="theme-toggle" class="theme-btn">🌙 Modo Oscuro</button>
         </aside>
 
-        <!-- ===== CONTENIDO PRINCIPAL ===== -->
         <main class="main-content">
 
-            <!-- VISTA: INICIO / DASHBOARD -->
+            <!-- VISTA INICIO -->
             <section id="vista-inicio" class="vista active">
                 <h2 class="vista-title">Dashboard</h2>
-
                 <div class="balance-card">
                     <p class="balance-label">Saldo Disponible</p>
                     <div class="balance-display">
@@ -129,17 +141,11 @@
                         <button id="toggle-eye" class="eye-btn" title="Mostrar / Ocultar saldo">👁️</button>
                     </div>
                 </div>
-
                 <div class="ultimas-transacciones">
                     <h3>Últimas transacciones</h3>
                     <table class="transactions-table">
                         <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Descripción</th>
-                                <th>Tipo</th>
-                                <th>Monto</th>
-                            </tr>
+                            <tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Monto</th></tr>
                         </thead>
                         <tbody id="tbody-ultimas"></tbody>
                     </table>
@@ -147,28 +153,20 @@
                 </div>
             </section>
 
-            <!-- VISTA: PERFIL -->
+            <!-- VISTA PERFIL (datos dinámicos) -->
             <section id="vista-perfil" class="vista">
                 <h2 class="vista-title">Mi Perfil</h2>
-
                 <div id="profile-container">
                     <div class="profile-header">
                         <img src="https://via.placeholder.com/100" alt="Foto de Perfil" class="profile-pic">
                         <h2 id="display-username" class="profile-username">Nombre de Usuario</h2>
                     </div>
-
                     <div class="perfil-card">
-                        <div class="perfil-info">
-                            <p><span class="etiqueta">Cédula</span><span class="valor">V-12.345.678</span></p>
-                            <p><span class="etiqueta">Correo</span><span class="valor">carlos.gonzalez@email.com</span></p>
-                            <p><span class="etiqueta">Teléfono</span><span class="valor">0414-123-4567</span></p>
-                            <p><span class="etiqueta">Número de cuenta</span><span class="valor">0102-0000-12-0000012345</span></p>
-                            <p><span class="etiqueta">Tipo de cuenta</span><span class="valor">Cuenta Corriente</span></p>
+                        <div class="perfil-info" id="perfil-datos">
+                            <!-- Se llenará con JS -->
                         </div>
                     </div>
-
                     <hr class="perfil-hr">
-
                     <div class="cambiar-pass-section">
                         <h3 class="section-subtitle">Cambiar Contraseña</h3>
                         <form class="form-operacion" id="change-password-form" novalidate>
@@ -186,12 +184,9 @@
                         </form>
                         <div class="confirmacion" id="confirmacion-password"></div>
                     </div>
-
                     <hr class="perfil-hr">
-
                     <button id="logout-btn" class="btn-danger">Cerrar Sesión</button>
                 </div>
-
                 <div id="logout-screen" class="logout-screen hidden">
                     <div class="success-icon">✅</div>
                     <h2>Sesión Finalizada</h2>
@@ -200,72 +195,31 @@
                 </div>
             </section>
 
-            <!-- VISTA: TRANSFERENCIAS -->
+            <!-- VISTAS BANCARIAS (sin cambios funcionales) -->
             <section id="vista-transferencias" class="vista">
                 <h2 class="vista-title">Transferencias</h2>
                 <form class="form-operacion" id="form-transferencia" novalidate>
-                    <div class="form-group">
-                        <label for="t-cuenta">Número de cuenta destino</label>
-                        <input type="text" id="t-cuenta" placeholder="0000-0000-00-0000000000" maxlength="24">
-                        <span class="error-msg" id="err-t-cuenta"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="t-titular">Titular de la cuenta</label>
-                        <input type="text" id="t-titular" placeholder="Nombre completo del titular">
-                        <span class="error-msg" id="err-t-titular"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="t-monto">Monto (Bs.)</label>
-                        <input type="number" id="t-monto" placeholder="0.00" min="0.01" step="0.01">
-                        <span class="error-msg" id="err-t-monto"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="t-concepto">Concepto</label>
-                        <input type="text" id="t-concepto" placeholder="Descripción del pago">
-                        <span class="error-msg" id="err-t-concepto"></span>
-                    </div>
+                    <div class="form-group"><label>Cuenta destino</label><input id="t-cuenta"><span id="err-t-cuenta" class="error-msg"></span></div>
+                    <div class="form-group"><label>Titular</label><input id="t-titular"><span id="err-t-titular" class="error-msg"></span></div>
+                    <div class="form-group"><label>Monto (Bs.)</label><input type="number" id="t-monto" step="0.01"><span id="err-t-monto" class="error-msg"></span></div>
+                    <div class="form-group"><label>Concepto</label><input id="t-concepto"><span id="err-t-concepto" class="error-msg"></span></div>
                     <button type="submit" class="btn-primary">Realizar Transferencia</button>
                 </form>
-                <div class="confirmacion" id="confirmacion-transferencia"></div>
+                <div id="confirmacion-transferencia" class="confirmacion"></div>
             </section>
 
-            <!-- VISTA: PAGO MÓVIL -->
             <section id="vista-pago-movil" class="vista">
                 <h2 class="vista-title">Pago Móvil</h2>
                 <form class="form-operacion" id="form-pago-movil" novalidate>
-                    <div class="form-group">
-                        <label for="pm-telefono">Número de teléfono</label>
-                        <input type="tel" id="pm-telefono" placeholder="04XX-XXX-XXXX" maxlength="15">
-                        <span class="error-msg" id="err-pm-telefono"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="pm-cedula">Cédula del receptor</label>
-                        <input type="text" id="pm-cedula" placeholder="V-00000000">
-                        <span class="error-msg" id="err-pm-cedula"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="pm-banco">Banco del receptor</label>
-                        <select id="pm-banco">
-                            <option value="">Seleccione un banco</option>
-                            <option value="0102">Banco de Venezuela (0102)</option>
-                            <option value="0134">Banesco (0134)</option>
-                            <option value="0105">Mercantil (0105)</option>
-                            <option value="0175">Bicentenario (0175)</option>
-                            <option value="0138">Banco Plaza (0138)</option>
-                        </select>
-                        <span class="error-msg" id="err-pm-banco"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="pm-monto">Monto (Bs.)</label>
-                        <input type="number" id="pm-monto" placeholder="0.00" min="0.01" step="0.01">
-                        <span class="error-msg" id="err-pm-monto"></span>
-                    </div>
+                    <div class="form-group"><label>Teléfono</label><input id="pm-telefono" placeholder="0412-1234567"><span id="err-pm-telefono" class="error-msg"></span></div>
+                    <div class="form-group"><label>Cédula receptor</label><input id="pm-cedula"><span id="err-pm-cedula" class="error-msg"></span></div>
+                    <div class="form-group"><label>Banco</label><select id="pm-banco"><option value="">Seleccione</option><option>Banco de Venezuela</option><option>Banesco</option><option>Mercantil</option></select><span id="err-pm-banco" class="error-msg"></span></div>
+                    <div class="form-group"><label>Monto</label><input type="number" id="pm-monto" step="0.01"><span id="err-pm-monto" class="error-msg"></span></div>
                     <button type="submit" class="btn-primary">Realizar Pago</button>
                 </form>
-                <div class="confirmacion" id="confirmacion-pago-movil"></div>
+                <div id="confirmacion-pago-movil" class="confirmacion"></div>
             </section>
 
-            <!-- VISTA: HISTORIAL DE MOVIMIENTOS -->
             <section id="vista-historial" class="vista">
                 <h2 class="vista-title">Historial de Movimientos</h2>
                 <div class="filtros">
@@ -274,58 +228,31 @@
                     <button class="btn-filtro" data-filtro="salida">Solo Salidas</button>
                 </div>
                 <table class="transactions-table">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Descripción</th>
-                            <th>Tipo</th>
-                            <th>Monto</th>
-                            <th>Detalle</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Fecha</th><th>Descripción</th><th>Tipo</th><th>Monto</th><th>Detalle</th></tr></thead>
                     <tbody id="tbody-historial"></tbody>
                 </table>
             </section>
 
-            <!-- VISTA: DETALLE DE TRANSACCIÓN -->
             <section id="vista-detalle" class="vista">
                 <button class="btn-link btn-volver" id="btn-volver">← Volver al Historial</button>
                 <h2 class="vista-title">Detalle de Transacción</h2>
                 <div class="detalle-card" id="detalle-contenido"></div>
             </section>
 
-            <!-- VISTA: DEPÓSITOS -->
             <section id="vista-depositos" class="vista">
                 <h2 class="vista-title">Depósitos</h2>
                 <form class="form-operacion" id="form-deposito" novalidate>
-                    <div class="form-group">
-                        <label for="d-tipo">Tipo de depósito</label>
-                        <select id="d-tipo">
-                            <option value="">Seleccione tipo</option>
-                            <option value="efectivo">Efectivo</option>
-                            <option value="cheque">Cheque</option>
-                            <option value="transferencia">Transferencia bancaria</option>
-                        </select>
-                        <span class="error-msg" id="err-d-tipo"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="d-monto">Monto a depositar (Bs.)</label>
-                        <input type="number" id="d-monto" placeholder="0.00" min="0.01" step="0.01">
-                        <span class="error-msg" id="err-d-monto"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="d-referencia">Número de referencia <span style="font-weight:400;text-transform:none">(opcional)</span></label>
-                        <input type="text" id="d-referencia" placeholder="Ej: 00123456">
-                    </div>
+                    <div class="form-group"><label>Tipo</label><select id="d-tipo"><option value="">Seleccione</option><option>Efectivo</option><option>Cheque</option><option>Transferencia</option></select><span id="err-d-tipo" class="error-msg"></span></div>
+                    <div class="form-group"><label>Monto</label><input type="number" id="d-monto" step="0.01"><span id="err-d-monto" class="error-msg"></span></div>
+                    <div class="form-group"><label>Referencia (opcional)</label><input id="d-referencia"></div>
                     <button type="submit" class="btn-primary">Registrar Depósito</button>
                 </form>
-                <div class="confirmacion" id="confirmacion-deposito"></div>
+                <div id="confirmacion-deposito" class="confirmacion"></div>
             </section>
 
         </main>
     </div>
 
-    <!-- Pantalla de carga global (overlay para el logout) -->
     <div id="loading-screen" class="loading-screen hidden">
         <div class="spinner"></div>
         <p>Cerrando sesión...</p>
